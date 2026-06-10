@@ -40,22 +40,14 @@ docker compose down -v   # borra también dashboards/alarmas creados
 
 ## Consideraciones del entorno
 
-Durante el desarrollo del laboratorio se trabajó en **macOS utilizando Docker Desktop**, por lo que se presentó una diferencia respecto a la guía original.
+El laboratorio fue desarrollado en *macOS con Docker Desktop.* La consulta propuesta en la guía:
 
-La consulta propuesta para monitorear el consumo de CPU del contenedor backend fue:
-
-```promql
 sum(rate(container_cpu_usage_seconds_total{name="lab-backend"}[1m])) * 100
-```
 
-Sin embargo, en este entorno **cAdvisor no expuso correctamente la etiqueta `name="lab-backend"`**, por lo que la consulta no retornó datos.
+no retornó datos debido a que cAdvisor no expuso correctamente el nombre del contenedor en este entorno.
 
-Para solucionar este inconveniente se utilizó la métrica expuesta directamente por la aplicación backend:
+Por ello se utilizó la siguiente métrica del propio backend:
 
-```promql
 rate(backend_process_cpu_seconds_total{job="backend"}[1m]) * 100
-```
 
-Esta métrica representa el consumo de CPU del proceso de la aplicación backend y permitió monitorear correctamente su comportamiento, configurar alertas y verificar el ciclo completo de observabilidad.
-
-La regla de alerta configurada con esta métrica funcionó correctamente, alcanzando el estado **Firing** y generando los eventos esperados en Grafana y Loki.
+Con esta adaptación se monitoreó correctamente el consumo de CPU de la aplicación y la alerta alcanzó el estado Firing, cumpliendo los objetivos del laboratorio.
