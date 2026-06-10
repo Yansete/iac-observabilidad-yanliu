@@ -1,6 +1,6 @@
 # Respuestas – Laboratorio de Observabilidad
 
-Este documento contiene las respuestas a las preguntas planteadas en la guía del laboratorio. Las instrucciones para validar el funcionamiento de la solución se encuentran documentadas en el archivo README.md del proyecto.
+Este documento contiene las respuestas a las preguntas planteadas en la guía del laboratorio.
 
 ## 1. ¿Por qué necesitamos Loki además de Prometheus si ya tenemos /metrics?
 
